@@ -7,7 +7,7 @@ export default function solution(content){
   console.log(namesOfCities(obj))
   console.log(humidity(obj))
   console.log(hottestDay(obj))
-  console.log()
+  console.log(hottestCity(obj))
   // END
 }
 
@@ -38,14 +38,11 @@ const hottestDay = (obj) => {
   return `HottestDay: ${hottest.Date} ${hottest.City}`
 }
 
-//Выведите количество записей с данными в переданном файле. Учтите, что первая строчка в CVS файле является заголовочной, она не содержит данных и не должна учитываться.
-
-
-// Выведите дату самой жаркой погоды и город, в котором была зафиксирована эта температура
-
-
-// Count: 20
-// Cities: Chicago, Denver, Los Angeles, Miami, Seattle
-// Humidity: Min: 58, Max: 80
-// HottestDay: 2023-04-18 Los Angeles
-// HottestCity: Miami
+const hottestCity = (obj) => {
+  const cities = obj.reduce((acc, item) => {
+    const prop = item.City.replace(' ','_');
+    acc[prop] = (acc[prop] ?? 0) + Number(item.Max_Temperature);
+    return acc;
+  }, {})
+  return cities;
+}
